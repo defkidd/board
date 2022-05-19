@@ -25,15 +25,15 @@
 		</layout>
 	</appender>
 	
-	<appender name="db" class="kr.or.defkid.module.CustomJDBCAppender">
-		<param name="Threshold" value="ERROR" />
-		<param name="driver" value="oracle.jdbc.driver.OracleDriver" />
-		<param name="URL" value="jdbc:oracle:thin:@localhost:1521:XE" />
-		<param name="user" value="ddit" />
-		<param name="password" value="java" />
-		<param name="sql" value="insert into tbl_log values(sysdate, '%p', '%C', '%m')" />
+<!-- 	<appender name="db" class="kr.or.defkid.module.CustomJDBCAppender"> -->
+<!-- 		<param name="Threshold" value="ERROR" /> -->
+<!-- 		<param name="driver" value="oracle.jdbc.driver.OracleDriver" /> -->
+<!-- 		<param name="URL" value="jdbc:oracle:thin:@localhost:1521:XE" /> -->
+<!-- 		<param name="user" value="ddit" /> -->
+<!-- 		<param name="password" value="java" /> -->
+<!-- 		<param name="sql" value="insert into tbl_log values(sysdate, '%p', '%C', '%m')" /> -->
 	
-	</appender>
+<!-- 	</appender> -->
 		
 
 	<!-- Application Loggers -->
@@ -60,7 +60,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyFileAppender" />
 		<appender-ref ref="db" />

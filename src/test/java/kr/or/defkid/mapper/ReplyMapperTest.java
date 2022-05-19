@@ -22,12 +22,17 @@ public class ReplyMapperTest {
 	@Test
 	@Disabled
 	public void insertTest() {
-		ReplyVO replyVO = new ReplyVO();
-		replyVO.setBoardNum(19);
-		replyVO.setReplyTitle("ㅋㅋㅋ");
-		replyVO.setReplyWriter("ㅋㅋㅋㅇㅋ");
-		replyVO.setReplyContent("크크크크크");
-		Assertions.assertEquals(1, replyMapper.insertReply(replyVO));
+		ReplyVO replyVO;
+		for (int i = 1; i <10; i++) {
+			for (int j = 1; j < 5; j++) {
+				replyVO = new ReplyVO();
+				replyVO.setBoardNum(i);
+				replyVO.setReplyTitle("댓글"+i);
+				replyVO.setReplyWriter("댓글"+i);
+				replyVO.setReplyContent("크크크크크"+i);
+				Assertions.assertEquals(1, replyMapper.insertReply(replyVO));
+			}
+		}
 	
 	}
 	
@@ -51,10 +56,10 @@ public class ReplyMapperTest {
 	}
 	
 	@Test
-	@Disabled
+//	@Disabled
 	public void selectTest() {
 		
-		log.info(replyMapper.selectReply(3)+"");
+		log.info(replyMapper.selectReply(33)+"");
 	}
 	
 	@Test
@@ -67,6 +72,7 @@ public class ReplyMapperTest {
 	}
 	
 	@Test
+	@Disabled
 	public void selectReplyListTest() {
 //		replyMapper.selectReplyList().forEach(System.out::println);
 		replyMapper.selectReplyList2(19).stream().forEach(vo -> {
