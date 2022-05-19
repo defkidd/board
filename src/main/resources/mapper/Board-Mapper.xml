@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.defkid.mapper.BoardMapper">
+
+	<insert id="insertBoard" parameterType="boardVO">
+		insert into BOARDTEST(BOARD_NUM,BOARD_TITLE,BOARD_WRITER,BOARD_CONTENT)
+		values(bt_num_seq.nextval,#{boardTitle},#{boardWriter},#{boardContent})
+	</insert>
+	
+	<update id="updateBoard" parameterType="boardVO" >
+		update BOARDTEST set
+				BOARD_TITLE = #{boardTitle},
+				BOARD_WRITER = #{boardWriter},
+				BOARD_CONTENT = #{boardContent},
+				BOARD_UPDATE = SYSDATE
+		where BOARD_NUM = #{boardNum}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from BOARDTEST where BOARD_NUM = #{boardNum}
+	</delete>
+
+	<select id="selectBoard" parameterType="int" resultType="boardVO" >
+		select * from BOARDTEST where BOARD_NUM = #{boardNum}
+	</select>
+	
+	<select id="selectBoardList" resultType="boardVO">
+		select * from BOARDTEST 
+	
+	</select>
+	
+	<select id="selectBoardPage" parameterType="pageCondDTO" resultType="boardVO">
+	<![CDATA[
+	  select board_num,board_title,board_writer,board_content,board_regdate  from 
+        (select rownum as myrownum,board_num,board_title,board_writer,board_content,board_regdate from BOARDTEST
+            where rownum <= #{pageNum} * #{pageSize})
+      where myrownum > (#{pageNum} -1) * #{pageSize}  
+      order by board_num desc
+    ]]>  
+	</select>
+	
+	<select id="getBoardCount" resultType="int">
+		select count(*) from boardtest
+	</select>
+</mapper>
