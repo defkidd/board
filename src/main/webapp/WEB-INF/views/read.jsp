@@ -13,6 +13,7 @@
 					color: yellow;
 					cursor: pointer;
 
+
 				}
 
 				.modal {
@@ -132,12 +133,13 @@
 								replyDiv.innerHTML = jsonData[i].replyTitle + "=>" +
 									jsonData[i].replyWriter + "=>" +
 									jsonData[i].replyContent;
+								// replyDiv.onclick = f_listDetail.bind(this);
 								let hiddenNum = document.createElement("input");
 								hiddenNum.type = "hidden";
+								hiddenNum.setAttribute("class", "replyNo");
 								hiddenNum.value = jsonData[i].replyNo;
 								replyDiv.appendChild(hiddenNum);
 								c_replyList.appendChild(replyDiv);
-
 
 							}
 							const replys = document.querySelectorAll(".reply");
@@ -178,9 +180,11 @@
 					xhr.send(JSON.stringify(l_data));
 				}
 
-				const f_detailDel = (replyNo) => {
-					console.log("dddd");
+				const f_detailDel = () => {
+					let replyNo = document.querySelector(".modal_body").querySelector(".replyNo").value;
 					console.log(replyNo);
+					// console.log(document.querySelector(".modal_body").querySelector("input[type=hidden]").value);
+					// console.log(replyNo);
 					const xhr = new XMLHttpRequest();
 					xhr.open("post", "${replyPath}/delete", true);
 					xhr.onreadystatechange = () => {
@@ -190,6 +194,7 @@
 								c_replyList.innerHTML = "";
 								f_replyList();
 								modal.classList.toggle('show');
+								body.style.overflow = 'auto';
 							}
 						}
 					}
@@ -198,72 +203,43 @@
 				}
 
 				const f_detail = (p_list) => {
+					console.log("안농 ㅎ_ㅎ");
 					for (let i = 0; i < p_list.length; i++) {
+						console.log("안뇽");
 						const f_listDetail = () => {
-
 							let values = event.target.innerText.split("=>");
 							detailTitle.value = values[0];
 							detailWriter.value = values[1];
 							detailContent.value = values[2];
-
+							modal_body.appendChild(event.target.lastChild);
 							modal.classList.toggle('show');
 
 							if (modal.classList.contains('show')) {
 								body.style.overflow = 'hidden';
 							}
 
-							modal.addEventListener('click', (event) => {
-								if (event.target === modal) {
-									modal.classList.toggle('show');
-
-									if (!modal.classList.contains('show')) {
-										body.style.overflow = 'auto';
-									}
-								}
-							});
+							console.log("kkkkkkk");
 							detailMod.addEventListener("click", f_detailMod.bind(this, event.target.lastChild.value));
-							console.log(this);
-							detailDel.addEventListener("click", f_detailDel.bind(this, event.target.lastChild.value));
-
+							// detailDel.addEventListener("click", f_detailDel.bind(this, event.target.lastChild.value));
 						};
 
 						p_list[i].addEventListener("click", f_listDetail);
 
 
 					}
+					modal.addEventListener('click', (event) => {
+						if (event.target === modal) {
+							modal.classList.toggle('show');
+
+							if (!modal.classList.contains('show')) {
+								body.style.overflow = 'auto';
+							}
+						}
+					});
 				}
-
-
-
+				detailDel.addEventListener("click", f_detailDel);
 				const f_writeReply = () => {
 					event.preventDefault();
-					// const body = document.querySelector('body');
-					// const modal = document.querySelector('.modal');
-					// const modal_body = document.querySelector('.modal_body');
-					// modal.classList.toggle('show');
-
-					// if (modal.classList.contains('show')) {
-					// 	body.style.overflow = 'hidden';
-					// }
-
-					// modal.addEventListener('click', (event) => {
-					// 	if (event.target === modal) {
-					// 		modal.classList.toggle('show');
-
-					// 		if (!modal.classList.contains('show')) {
-					// 			body.style.overflow = 'auto';
-					// 		}
-					// 	}
-					// });
-
-					// let formData = new FormData(document.forms[1]);
-					// let formData = new FormData();
-					// formData.append("boardNum", "${ detail.boardNum }");
-					// formData.append("replyTitle", c_title.value);
-					// formData.append("replyWriter", c_writer.value);
-					// formData.append("replyContent", c_content.value);
-					// console.log(document.forms[1]);
-					// console.log(formData);
 					let l_data = {
 						replyTitle: c_title.value,
 						replyWriter: c_writer.value,
@@ -315,13 +291,6 @@
 				};
 
 				document.forms[0].addEventListener("submit", f_del);
-
-
-
-
-
-
-
 
 			</script>
 
