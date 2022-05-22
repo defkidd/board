@@ -63,7 +63,7 @@
 		<priority value="info" />
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyFileAppender" />
-		<appender-ref ref="db" />
+<!-- 		<appender-ref ref="db" /> -->
 	</root>
 
 </log4j:configuration>

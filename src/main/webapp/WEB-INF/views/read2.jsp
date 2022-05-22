@@ -156,8 +156,7 @@
 				}
 				f_replyList();
 
-				const f_detailMod = () => {
-					let p_replyNo = document.querySelector("#id_replyNo").value;
+				const f_detailMod = (p_replyNo) => {
 					let l_data = {
 						replyTitle: detailTitle.value,
 						replyWriter: detailWriter.value,
@@ -216,17 +215,15 @@
 					if (modal.classList.contains('show')) {
 						body.style.overflow = 'hidden';
 					}
-					// detailMod.removeEventListener("click", f_detailMod.bind(this, document.querySelector("#id_replyNo").value));
-					// detailMod.addEventListener("click", f_detailMod.bind(this, document.querySelector("#id_replyNo").value))
-					// modal_body.addEventListener("click", () => {
-					// 	console.log(event.target.value);
-					// 	if (event.target.id === "detailMod") {
-					// 		f_detailMod(document.querySelector("#id_replyNo").value);
-					// 	}
 
-					// })
+					modal_body.addEventListener("click", () => {
+						console.log(event.target.value);
+						if (event.target.id === "detailMod") {
+							f_detailMod(document.querySelector("#id_replyNo").value);
+						}
 
-					detailMod.addEventListener("click", f_detailMod);
+					})
+
 					detailDel.addEventListener("click", f_detailDel);
 
 
